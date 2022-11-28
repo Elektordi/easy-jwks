@@ -13,7 +13,7 @@ def int_to_b64(i):
     b = hex(i)[2:]
     if len(b)%2:
         b = "0"+b
-    return base64.urlsafe_b64encode(codecs.decode(b, 'hex'))
+    return base64.urlsafe_b64encode(codecs.decode(b, 'hex')).decode().rstrip("=")
 
 
 @app.get("/.well-known/openid-configuration")
