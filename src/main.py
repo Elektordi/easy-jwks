@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 import base64
 import codecs
 
-from keyring import public_key, kid
+from keyring import public_key, kid, issuer
 
 
 app = FastAPI()
@@ -19,8 +19,8 @@ def int_to_b64(i):
 @app.get("/.well-known/openid-configuration")
 async def oidc():
     return {
-      "issuer": "http://localhost:8000",
-      "jwks_uri": "http://localhost:8000/.well-known/jwks.json",
+      "issuer": issuer,
+      "jwks_uri": "%s/.well-known/jwks.json"%(issuer),
       "response_types_supported": [
         "id_token"
       ],

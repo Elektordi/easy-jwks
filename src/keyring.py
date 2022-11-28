@@ -1,9 +1,12 @@
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 import hashlib
+import os
 
 
-with open("key.pem", "rb") as key_file:
+issuer = os.environ.get("EASY_JWKS_ISSUER", "http://localhost:8000").rstrip("/")
+
+with open(os.environ.get("EASY_JWKS_KEYFILE", "key.pem"), "rb") as key_file:
     private_key = serialization.load_pem_private_key(
         key_file.read(),
         password=None,
