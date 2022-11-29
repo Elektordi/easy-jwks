@@ -4,6 +4,7 @@ import base64
 import codecs
 
 from keyring import public_key, kid, issuer
+public_numbers = public_key.public_numbers()
 
 
 app = FastAPI()
@@ -42,8 +43,8 @@ async def jwks():
           "kty": "RSA",
           "kid": kid,
           "alg": "RS256",
-          "n": int_to_b64(public_key.public_numbers().n),
-          "e": int_to_b64(public_key.public_numbers().e),
+          "n": int_to_b64(public_numbers.n),
+          "e": int_to_b64(public_numbers.e),
         }
       ]
     }
